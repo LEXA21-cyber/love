@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>🌻</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Caveat', cursive;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ===== SKY ===== */
+.sky {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg,
+    #7ec8e3 0%,
+    #a8d8ea 20%,
+    #c5e8f0 35%,
+    #ffe4a0 60%,
+    #ffcc70 78%,
+    #ffb347 100%);
+  z-index: 0;
+  overflow: hidden;
+}
+.sky::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 12% 8%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 28% 5%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1.5px 1.5px at 65% 10%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 82% 7%, rgba(255,255,255,0.4), transparent);
+  animation: starFade 6s ease-in-out infinite alternate;
+}
+@keyframes starFade { from { opacity: 0.3; } to { opacity: 0.7; } }
+
+/* ===== SUN ===== */
+.sun {
+  position: absolute;
+  top: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 45% 40%,
+    #fffce8 0%,
+    #fff5b8 20%,
+    #ffd966 50%,
+    #ffb347 85%,
+    #ff9500 100%);
+  box-shadow:
+    0 0 40px #ffd966,
+    0 0 80px #ffb347,
+    0 0 150px rgba(255, 180, 71, 0.7),
+    0 0 250px rgba(255, 180, 71, 0.4);
+  animation: sunPulse 5s ease-in-out infinite;
+  z-index: 1;
+}
+.sun::before {
+  content: '';
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 220, 120, 0.4) 0%, transparent 70%);
+  animation: sunRays 8s linear infinite;
+}
+@keyframes sunRays {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(360deg) scale(1.1); }
+}
+@keyframes sunPulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.07); }
+}
+
+/* ===== CLOUDS ===== */
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  filter: blur(1px);
+  z-index: 1;
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+}
+.cloud::before, .cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+.cloud1 {
+  top: 10%; left: -20%;
+  width: 120px; height: 42px;
+  animation: drift 70s linear infinite;
+}
+.cloud1::before { width: 70px; height: 70px; top: -32px; left: 15px; }
+.cloud1::after { width: 50px; height: 50px; top: -22px; right: 10px; }
+.cloud2 {
+  top: 24%; left: -30%;
+  width: 90px; height: 32px;
+  animation: drift 95s linear infinite;
+  animation-delay: -25s;
+  opacity: 0.75;
+}
+.cloud2::before { width: 55px; height: 55px; top: -26px; left: 12px; }
+.cloud2::after { width: 40px; height: 40px; top: -16px; right: 8px; }
+.cloud3 {
+  top: 5%; left: -40%;
+  width: 100px; height: 36px;
+  animation: drift 120s linear infinite;
+  animation-delay: -60s;
+  opacity: 0.65;
+}
+.cloud3::before { width: 60px; height: 60px; top: -28px; left: 14px; }
+.cloud3::after { width: 45px; height: 45px; top: -18px; right: 10px; }
+@keyframes drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(150vw); }
+}
+
+/* Birds */
+.bird {
+  position: absolute;
+  z-index: 1;
+  color: rgba(60, 60, 80, 0.6);
+  font-size: 14px;
+  animation: fly 25s linear infinite;
+}
+.bird::before { content: 'ᨐ'; }
+.bird1 { top: 15%; animation-delay: -5s; }
+.bird2 { top: 18%; animation-delay: -12s; font-size: 10px; }
+.bird3 { top: 12%; animation-delay: -20s; font-size: 12px; }
+@keyframes fly {
+  from { left: -5%; }
+  to { left: 105%; }
+}
+
+/* ===== GROUND ===== */
+.ground {
+  position: fixed;
+  bottom: 0;
+  left: -5%; right: -5%;
+  height: 42vh;
+  background: linear-gradient(180deg,
+    #9ccc65 0%,
+    #8bc34a 20%,
+    #7cb342 50%,
+    #558b2f 85%,
+    #33691e 100%);
+  border-radius: 50% 50% 0 0 / 15% 15% 0 0;
+  z-index: 2;
+  box-shadow: 0 -15px 50px rgba(85, 139, 47, 0.4);
+}
+.ground::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12) 0%, transparent 30%),
+    radial-gradient(circle at 80% 60%, rgba(0,0,0,0.08) 0%, transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(255,255,255,0.08) 0%, transparent 30%);
+  border-radius: inherit;
+}
+.ground::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 0; right: 0;
+  height: 20px;
+  background-image:
+    radial-gradient(3px 10px at 5% 100%, #8bc34a 50%, transparent 51%),
+    radial-gradient(3px 14px at 12% 100%, #7cb342 50%, transparent 51%),
+    radial-gradient(3px 8px at 20% 100%, #9ccc65 50%, transparent 51%),
+    radial-gradient(3px 12px at 32% 100%, #8bc34a 50%, transparent 51%),
+    radial-gradient(3px 10px at 45% 100%, #7cb342 50%, transparent 51%),
+    radial-gradient(3px 14px at 58% 100%, #9ccc65 50%, transparent 51%),
+    radial-gradient(3px 11px at 70% 100%, #8bc34a 50%, transparent 51%),
+    radial-gradient(3px 9px at 82% 100%, #7cb342 50%, transparent 51%),
+    radial-gradient(3px 13px at 92% 100%, #9ccc65 50%, transparent 51%);
+  background-repeat: no-repeat;
+}
+
+/* ===== SUNFLOWER FIELD ===== */
+.field {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 100vh;
+  z-index: 3;
+  pointer-events: none;
+}
+.sunflower {
+  position: absolute;
+  bottom: 12vh;
+  transform-origin: bottom center;
+  animation: sway 4s ease-in-out infinite;
+  animation-delay: var(--sway-delay, 0s);
+}
+@keyframes sway {
+  0%, 100% { transform: rotate(-2.5deg) scale(var(--scale, 1)); }
+  50% { transform: rotate(2.5deg) scale(var(--scale, 1)); }
+}
+.stem {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 0;
+  background: linear-gradient(90deg, #558b2f, #7cb342, #558b2f);
+  border-radius: 3px;
+  animation: growStem 1.8s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
+  animation-delay: var(--grow-delay, 0s);
+}
+@keyframes growStem { to { height: var(--h); } }
+.head-wrap {
+  position: absolute;
+  bottom: var(--h);
+  left: 50%;
+  width: 0; height: 0;
+  transform: translateX(-50%) scale(0);
+  animation: popHead 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: calc(var(--grow-delay, 0s) + 1.3s);
+}
+@keyframes popHead { to { transform: translateX(-50%) scale(1); } }
+.head {
+  position: absolute;
+  top: 0; left: 0;
+  width: 70px; height: 70px;
+  transform: translate(-50%, -50%);
+}
+.petal {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 12px; height: 28px;
+  background: linear-gradient(180deg, #fff29a 0%, #ffe74c 30%, #ffb800 70%, #e08800 100%);
+  border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
+  transform-origin: center bottom;
+  transform: translate(-50%, -100%) rotate(var(--r));
+  box-shadow: inset 0 -3px 5px rgba(180, 100, 0, 0.3);
+}
+.center-disk {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #8d6e63 0%, #6d4c41 30%, #4e342e 60%, #3e2723 100%);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.5),
+    0 0 0 3px #5d4037,
+    0 0 0 5px #ffe74c,
+    0 0 0 7px #ffb800,
+    0 0 20px rgba(255, 180, 71, 0.6);
+}
+.leaf {
+  position: absolute;
+  bottom: var(--ly);
+  width: 34px; height: 20px;
+  background: linear-gradient(135deg, #8bc34a 0%, #558b2f 100%);
+  border-radius: 0 100% 0 100%;
+  transform: translateX(-50%) rotate(var(--lr));
+  transform-origin: center;
+  box-shadow: inset 0 -3px 5px rgba(0,0,0,0.15);
+}
+
+/* ===== BUTTERFLY & BEE ===== */
+.butterfly, .bee {
+  position: fixed;
+  font-size: 20px;
+  pointer-events: none;
+  z-index: 5;
+  animation: flyAround 12s ease-in-out infinite;
+}
+@keyframes flyAround {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(80px, -60px) rotate(15deg); }
+  50% { transform: translate(160px, -30px) rotate(-10deg); }
+  75% { transform: translate(80px, -80px) rotate(10deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* ===== POLAROID PHOTOS ===== */
+.polaroid {
+  position: fixed;
+  width: clamp(105px, 33vw, 145px);
+  background: #fff;
+  padding: 7px 7px 30px 7px;
+  border-radius: 3px;
+  box-shadow:
+    0 12px 35px rgba(60, 30, 0, 0.4),
+    0 3px 8px rgba(60, 30, 0, 0.2),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  z-index: 9;
+  opacity: 0;
+  --tx: 0;
+  transform: translateX(var(--tx)) scale(0.4) rotate(var(--rot, 0deg));
+  transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.polaroid.show {
+  opacity: 1;
+  transform: translateX(var(--tx)) scale(1) rotate(var(--rot, 0deg));
+}
+.polaroid::before {
+  /* selotip di atas */
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 42px;
+  height: 15px;
+  background: linear-gradient(180deg, rgba(255, 245, 200, 0.95), rgba(255, 240, 180, 0.85));
+  box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+  border-radius: 1px;
+}
+.polaroid img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+  background: #f0e8d8;
+}
+.polaroid .caption {
+  position: absolute;
+  bottom: 4px;
+  left: 6px;
+  right: 6px;
+  font-family: 'Caveat', cursive;
+  font-size: clamp(0.75rem, 3vw, 0.95rem);
+  color: #5a4020;
+  text-align: center;
+  line-height: 1.15;
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Posisi polaroid */
+.polaroid-1 {
+  top: 12%;
+  left: 6%;
+  --rot: -8deg;
+}
+.polaroid-2 {
+  top: 9%;
+  right: 6%;
+  --rot: 8deg;
+}
+.polaroid-3 {
+  top: 36%;
+  left: 50%;
+  --tx: -50%;
+  --rot: -3deg;
+}
+
+/* ===== MESSAGES ===== */
+.message {
+  position: fixed;
+  top: 68%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  font-size: clamp(1.8rem, 7vw, 3.2rem);
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  text-shadow:
+    0 3px 8px rgba(120, 60, 0, 0.5),
+    0 8px 30px rgba(255, 180, 71, 0.7),
+    0 0 60px rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transition: all 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+  pointer-events: none;
+  padding: 0 20px;
+  line-height: 1.1;
+  z-index: 10;
+  letter-spacing: 0.5px;
+}
+.message.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ===== HINT ===== */
+.hint {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  animation: hintFade 2.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 20;
+  text-transform: uppercase;
+  display: none;
+}
+@keyframes hintFade {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* ===== INTRO ===== */
+.intro {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 15, 5, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: opacity 0.8s ease;
+  cursor: pointer;
+}
+.intro.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+.intro-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: bounce 2s ease-in-out infinite;
+  filter: drop-shadow(0 6px 20px rgba(255, 217, 102, 0.8));
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-15px) scale(1.05); }
+}
+.intro-text {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.5rem, 6vw, 2.2rem);
+  color: #fff;
+  font-weight: 700;
+  text-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
+  padding: 0 20px;
+  text-align: center;
+}
+.intro-sub {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-top: 20px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: hintFade 2s ease-in-out infinite;
+}
+
+/* ===== FLOATING PETALS ===== */
+.float-petal {
+  position: fixed;
+  pointer-events: none;
+  z-index: 4;
+  animation: floatAway 8s linear forwards;
+  opacity: 0.85;
+  font-size: 20px;
+}
+@keyframes floatAway {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  15% { opacity: 0.9; }
+  85% { opacity: 0.9; }
+  100% { transform: translateY(-70vh) rotate(360deg) translateX(80px); opacity: 0; }
+}
+
+/* ===== FLASH ===== */
+.flash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(255, 255, 200, 0.5) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+}
+.flash.go { animation: flashGo 0.7s ease-out; }
+@keyframes flashGo {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 500px) {
+  .sun { width: 75px; height: 75px; }
+  .ground { height: 38vh; }
+  .butterfly, .bee { font-size: 16px; }
+  .polaroid-3 { top: 38%; }
+  .message { top: 72%; }
+}
+@media (max-height: 700px) {
+  .polaroid-1 { top: 8%; }
+  .polaroid-2 { top: 6%; }
+  .polaroid-3 { top: 32%; }
+  .message { top: 74%; }
+}
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div class="intro" id="intro">
+  <div class="intro-icon">🌻</div>
+  <div class="intro-text">Tap buat buka</div>
+  <div class="intro-sub">untuk kamu</div>
+</div>
+
+<div class="sky">
+  <div class="sun"></div>
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+  <div class="cloud cloud3"></div>
+  <div class="bird bird1"></div>
+  <div class="bird bird2"></div>
+  <div class="bird bird3"></div>
+</div>
+
+<div class="ground"></div>
+
+<div class="field" id="field"></div>
+
+<!-- POLAROID FOTOS -->
+<div class="polaroid polaroid-1" id="pol1">
+  <img id="foto1" src="foto1.png" alt="">
+  <div class="caption">buat kamu</div>
+</div>
+
+<div class="polaroid polaroid-2" id="pol2">
+  <img id="foto2" src="foto2.jpg" alt="">
+  <div class="caption">dari aku</div>
+</div>
+
+<div class="polaroid polaroid-3" id="pol3">
+  <img id="foto3" src="foto3.jpg" alt="">
+  <div class="caption">terus ya</div>
+</div>
+
+<div class="message" id="message"></div>
+
+<div class="hint" id="hint">tap untuk lanjut</div>
+
+<div class="flash" id="flash"></div>
+
+<audio id="bgMusic" loop preload="auto">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+(function() {
+  'use strict';
+
+  // ============================================================
+  // GANTI NAMA DI SINI
+  // ============================================================
+  var nama = "Khaulah";
+  // ============================================================
+
+  // Foto otomatis muncul dari folder, fallback ke bunga matahari
+  var fallbackSVG = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="%23fff8dc"/><text x="100" y="115" font-size="90" text-anchor="middle">🌻</text></svg>';
+
+  // Pasang fallback kalau foto gagal load
+  ['foto1', 'foto2', 'foto3'].forEach(function(id) {
+    var img = document.getElementById(id);
+    if (img) {
+      img.onerror = function() { this.src = fallbackSVG; };
+    }
+  });
+
+  var field = document.getElementById('field');
+  var messageEl = document.getElementById('message');
+  var hintEl = document.getElementById('hint');
+  var introEl = document.getElementById('intro');
+  var flashEl = document.getElementById('flash');
+  var audio = document.getElementById('bgMusic');
+
+  var musicStarted = false;
+  var gardenGrown = false;
+  var currentStep = -1;
+  var isAnimating = false;
+
+  // ===== STEPS: tiap tap = foto muncul + pesan =====
+  var steps = [
+    { photo: 'pol1', msg: 'Hai, ' + nama },
+    { photo: 'pol2', msg: 'Aku minta maaf' },
+    { photo: 'pol3', msg: 'Beneran, dari hati' },
+    { photo: null,  msg: 'Maafin aku ya' },
+    { photo: null,  msg: '🌻' }
+  ];
+
+  // ===== BUAT KEBUN BUNGA MATAHARI =====
+  var sunflowers = [
+    { x: 4,  h: '22vh', size: 0.9,  delay: 0.2 },
+    { x: 13, h: '28vh', size: 1.1,  delay: 0.5 },
+    { x: 22, h: '20vh', size: 0.85, delay: 0.8 },
+    { x: 30, h: '32vh', size: 1.25, delay: 0.3 },
+    { x: 40, h: '24vh', size: 1.0,  delay: 1.0 },
+    { x: 50, h: '34vh', size: 1.3,  delay: 0.6 },
+    { x: 60, h: '22vh', size: 0.95, delay: 1.2 },
+    { x: 70, h: '30vh', size: 1.2,  delay: 0.4 },
+    { x: 80, h: '24vh', size: 1.0,  delay: 0.9 },
+    { x: 90, h: '28vh', size: 1.1,  delay: 0.15 },
+    { x: 97, h: '20vh', size: 0.9,  delay: 1.1 }
+  ];
+
+  function createSunflower(data) {
+    var sf = document.createElement('div');
+    sf.className = 'sunflower';
+    sf.style.left = data.x + '%';
+    sf.style.setProperty('--h', data.h);
+    sf.style.setProperty('--grow-delay', data.delay + 's');
+    sf.style.setProperty('--sway-delay', (data.delay + 2) + 's');
+    sf.style.setProperty('--scale', data.size);
+
+    var stem = document.createElement('div');
+    stem.className = 'stem';
+    stem.style.setProperty('--h', data.h);
+    stem.style.setProperty('--grow-delay', data.delay + 's');
+    sf.appendChild(stem);
+
+    var leafL = document.createElement('div');
+    leafL.className = 'leaf';
+    leafL.style.setProperty('--ly', '30%');
+    leafL.style.setProperty('--lr', '-25deg');
+    leafL.style.left = '50%';
+    leafL.style.transform = 'translateX(-100%) rotate(-25deg)';
+    leafL.style.transformOrigin = 'right center';
+    sf.appendChild(leafL);
+
+    var leafR = document.createElement('div');
+    leafR.className = 'leaf';
+    leafR.style.setProperty('--ly', '50%');
+    leafR.style.setProperty('--lr', '25deg');
+    leafR.style.transform = 'translateX(0) rotate(25deg)';
+    leafR.style.transformOrigin = 'left center';
+    sf.appendChild(leafR);
+
+    var headWrap = document.createElement('div');
+    headWrap.className = 'head-wrap';
+    headWrap.style.setProperty('--h', data.h);
+    headWrap.style.setProperty('--grow-delay', data.delay + 's');
+
+    var head = document.createElement('div');
+    head.className = 'head';
+
+    for (var i = 0; i < 12; i++) {
+      var petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.setProperty('--r', (i * 30) + 'deg');
+      head.appendChild(petal);
+    }
+
+    var center = document.createElement('div');
+    center.className = 'center-disk';
+    head.appendChild(center);
+
+    headWrap.appendChild(head);
+    sf.appendChild(headWrap);
+    field.appendChild(sf);
+  }
+
+  for (var i = 0; i < sunflowers.length; i++) {
+    createSunflower(sunflowers[i]);
+  }
+
+  // ===== KUPU-KUPU & LEBAH =====
+  function createFlyer(emoji, top, left, duration, delay) {
+    var el = document.createElement('div');
+    el.className = emoji === '🦋' ? 'butterfly' : 'bee';
+    el.innerHTML = emoji;
+    el.style.top = top + '%';
+    el.style.left = left + '%';
+    el.style.animationDuration = duration + 's';
+    el.style.animationDelay = delay + 's';
+    document.body.appendChild(el);
+  }
+  createFlyer('🦋', 40, 15, 14, 0);
+  createFlyer('🦋', 50, 75, 16, -3);
+  createFlyer('🐝', 55, 40, 12, -5);
+  createFlyer('🐝', 48, 60, 15, -8);
+
+  // ===== SHOW NEXT STEP =====
+  function showNextStep() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    // Flash
+    flashEl.classList.remove('go');
+    void flashEl.offsetWidth;
+    flashEl.classList.add('go');
+
+    // Fade out pesan lama
+    if (currentStep >= 0) {
+      messageEl.classList.remove('show');
+      setTimeout(function() {
+        currentStep++;
+        if (currentStep < steps.length) {
+          displayStep(steps[currentStep]);
+        }
+        isAnimating = false;
+      }, 450);
+    } else {
+      currentStep++;
+      displayStep(steps[currentStep]);
+      isAnimating = false;
+    }
+  }
+
+  function displayStep(step) {
+    // Munculin foto (kalau ada)
+    if (step.photo) {
+      var pol = document.getElementById(step.photo);
+      if (pol) pol.classList.add('show');
+    }
+
+    // Munculin pesan
+    messageEl.textContent = step.msg;
+    void messageEl.offsetWidth;
+    messageEl.classList.add('show');
+
+    spawnFloatingPetals(6);
+  }
+
+  // ===== FLOATING PETALS =====
+  function spawnFloatingPetals(count) {
+    for (var i = 0; i < count; i++) {
+      var p = document.createElement('div');
+      p.className = 'float-petal';
+      p.innerHTML = ['🌻', '🌻', '✨', '💛'][Math.floor(Math.random() * 4)];
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.bottom = (5 + Math.random() * 35) + 'vh';
+      p.style.fontSize = (Math.random() * 14 + 16) + 'px';
+      p.style.animationDuration = (Math.random() * 3 + 6) + 's';
+      p.style.animationDelay = (Math.random() * 1.5) + 's';
+      document.body.appendChild(p);
+      (function(el) {
+        setTimeout(function() { el.remove(); }, 10000);
+      })(p);
+    }
+  }
+
+  // ===== MUSIC =====
+  function startMusic() {
+    if (musicStarted || !audio) return;
+    musicStarted = true;
+    audio.volume = 0.4;
+    audio.play().then(function() {
+      console.log('🎵 Musik jalan!');
+    }).catch(function(err) {
+      console.log('❌ Gagal play:', err.message);
+    });
+  }
+
+  // ===== START =====
+  function startExperience() {
+    introEl.classList.add('hide');
+    startMusic();
+
+    setTimeout(function() {
+      gardenGrown = true;
+      showNextStep();
+      hintEl.style.display = 'block';
+
+      setTimeout(function() {
+        hintEl.style.display = 'none';
+      }, 18000);
+    }, 3500);
+  }
+
+  // ===== INTERAKSI =====
+  introEl.addEventListener('click', startExperience);
+  introEl.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    startExperience();
+  }, { passive: false });
+
+  document.body.addEventListener('click', function() {
+    if (!gardenGrown) return;
+    if (introEl.classList.contains('hide')) advanceMessage();
+  });
+
+  document.body.addEventListener('touchstart', function() {
+    if (!gardenGrown) return;
+    if (introEl.classList.contains('hide')) advanceMessage();
+  }, { passive: true });
+
+  function advanceMessage() {
+    if (currentStep < steps.length - 1) {
+      showNextStep();
+    } else {
+      // Replay semua
+      messageEl.classList.remove('show');
+      setTimeout(function() {
+        // Reset semua polaroid
+        document.getElementById('pol1').classList.remove('show');
+        document.getElementById('pol2').classList.remove('show');
+        document.getElementById('pol3').classList.remove('show');
+        currentStep = -1;
+        showNextStep();
+      }, 500);
+    }
+  }
+
+  // ===== AMBIENT PETALS =====
+  setInterval(function() {
+    if (gardenGrown && Math.random() > 0.5) spawnFloatingPetals(1);
+  }, 3000);
+
+})();
+</script>
+</body>
+</html>
